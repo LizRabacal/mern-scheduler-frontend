@@ -30,7 +30,7 @@ const Agenda = () => {
           <InputLeftElement pointerEvents='none'>
             <FaSearch size={25} color='#5885E0' />
           </InputLeftElement>
-          <Input type='tel' size='lg' border='4px solid #5885E0' variant='filled' onChange={(e) => setSearchTerm(e.target.value)} placeholder='Pesquisar tarefa' />
+          <Input type='text' size='lg' border='4px solid #5885E0' variant='filled' onChange={(e) => setSearchTerm(e.target.value)} placeholder='Pesquisar tarefa' />
         </InputGroup>
 
 
