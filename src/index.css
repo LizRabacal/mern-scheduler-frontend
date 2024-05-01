@@ -174,3 +174,15 @@ bottom: 0;
 #btn2:hover{
   opacity: 80%;
 }
+
+.rbc-calendar {
+  background-color: white;
+  border-radius: 5px;
+  border: 6px solid #58E0B7;
+}
+
+.rbc-toolbar {
+  padding: 0.5%;
+  border-bottom: 5px solid #58E0B7;
+  background-color: #58E0B7;
+}
