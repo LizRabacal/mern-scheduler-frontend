@@ -7,7 +7,7 @@ import getDay from "date-fns/getDay";
 import pt, { ptBR } from "date-fns/locale/pt-BR";
 import { useState } from 'react';
 import moment from "moment";
-import { useDisclosure } from '@chakra-ui/react'
+import { useDisclosure, Button } from '@chakra-ui/react'
 import EventsContext from '../Contexts/EventContext';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import EventActions from "../Components/EventActions";
@@ -82,8 +82,8 @@ function Calendario() {
                 const response = await axios.get('https://date.nager.at/api/v3/publicholidays/2024/BR');
                 const holidaysData = response.data.map(element => ({
                     title: element.localName + " 🏖️",
-                    start: moment(new Date(element.date)).add(1, "days").startOf('day').toDate(), 
-                    end: moment(new Date(element.date)).add(1, "days").endOf('day').toDate(), 
+                    start: moment(new Date(element.date)).add(1, "days").startOf('day').toDate(),
+                    end: moment(new Date(element.date)).add(1, "days").endOf('day').toDate(),
                     isaholiday: true,
                     tags: "Feriado",
                     desc: "Feriado nacional"
@@ -103,7 +103,13 @@ function Calendario() {
         setUpdate(false);
         setDate(slotInfo.start);
         setEnd(slotInfo.end);
-        console.log(typeof(end));
+        onOpen();
+    }
+
+    const adicionartarefa = () =>{
+        setUpdate(false);
+        setDate(new Date());
+        setEnd(new Date());
         onOpen();
     }
 
@@ -124,81 +130,85 @@ function Calendario() {
     }
 
     return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}
-            >
+        <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}
+        >
 
-
-                {loading && <Loader/>}
-
-                <Calendar
-                    defaultDate={new Date()}
-                    defaultView="month"
-                    localizer={localizer}
-                    messages={messages}
-                    culture='ptBR'
-                    selectable={true}
-                    events={feriados.concat(events)}
-                    onSelectSlot={handleSelctSlot}
-                    onSelectEvent={handleSelctEvent}
-                    startAccessor="start"
-                    slotPropGetter={
-
-                        (event, start, end, isSelected) => {
-                            let newStyle = {
-                                cursor: 'pointer !important',
-                                borderRadius: "0px",
-                                border: "none"
-                            };
-
-
-                            return {
-                                className: "",
-                                style: newStyle
-                            };
-                        }
-
-
-                    }
-                    eventPropGetter={(event) => {
-                        const backgroundColor = event.isaholiday ? "transparent" : event.cor;
-                        const color = event.isaholiday && "grey";
-                        const textAlign = event.isaholiday && "center"
-                        const width = '100%';
-                        return { style: { backgroundColor, width, color, textAlign } }
-                    }}
-                    endAccessor="end"
-                    style={{ width: '90%', height: '730px', marginTop: '5%' }}
-
-                />
-
-
-
-
-                <EventActions
-                    update={update}
-                    setUpdate={setUpdate}
-                    setDate={setDate}
-                    date={date}
-                    setEnd={setEnd}
-                    end={end}
-                    showInfo={showInfo}
-                    setShowInfo={setShowInfo}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onOpen={onOpen}
-                    isOpen2={isOpen2}
-                    onClose2={onClose2}
-                    onOpen2={onOpen2}
-                    cancelRef={cancelRef}
-                    cancelRef2={cancelRef2}
-                    loading={loading}
-                    setLoading={setLoading}
-
-                />
+            <div className="adct" style={{width: "90%"}}>
+                <Button colorScheme="purple" onClick={adicionartarefa}>Adicionar tarefa</Button>
 
             </div>
 
-        
+            {loading && <Loader />}
+
+            <Calendar
+                defaultDate={new Date()}
+                defaultView="month"
+                localizer={localizer}
+                messages={messages}
+                culture='ptBR'
+                selectable={true}
+                events={feriados.concat(events)}
+                onSelectSlot={handleSelctSlot}
+                onSelectEvent={handleSelctEvent}
+                startAccessor="start"
+                slotPropGetter={
+
+                    (event, start, end, isSelected) => {
+                        let newStyle = {
+                            cursor: 'pointer !important',
+                            borderRadius: "0px",
+                            border: "none"
+                        };
+
+
+                        return {
+                            className: "",
+                            style: newStyle
+                        };
+                    }
+
+
+                }
+                eventPropGetter={(event) => {
+                    const backgroundColor = event.isaholiday ? "transparent" : event.cor;
+                    const color = event.isaholiday && "grey";
+                    const textAlign = event.isaholiday && "center"
+                    const width = '100%';
+                    return { style: { backgroundColor, width, color, textAlign } }
+                }}
+                endAccessor="end"
+                style={{ width: '90%', height: '730px', marginTop: '1%' }}
+
+            />
+
+
+
+
+            <EventActions
+                update={update}
+                setUpdate={setUpdate}
+                setDate={setDate}
+                date={date}
+                setEnd={setEnd}
+                end={end}
+                showInfo={showInfo}
+                setShowInfo={setShowInfo}
+                isOpen={isOpen}
+                onClose={onClose}
+                onOpen={onOpen}
+                isOpen2={isOpen2}
+                onClose2={onClose2}
+                onOpen2={onOpen2}
+                cancelRef={cancelRef}
+                cancelRef2={cancelRef2}
+                loading={loading}
+                setLoading={setLoading}
+
+            />
+
+        </div>
+
+
 
     )
 

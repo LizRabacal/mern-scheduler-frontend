@@ -56,7 +56,6 @@ const EventActions = ({ update, setUpdate, onClose, isOpen, cancelRef, cancelRef
 
         if (title && date && end) {
             setLoading(true)
-            console.log(tags);
 
             const newEvent = {
                 title: title,
@@ -141,7 +140,6 @@ const EventActions = ({ update, setUpdate, onClose, isOpen, cancelRef, cancelRef
 
     const addTag = () => {
         if (tag) {
-            console.log("tag")
             setTags([...tags, tag])
         }
 
